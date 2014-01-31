@@ -1,5 +1,7 @@
 GoalsApp::Application.routes.draw do
 
+  root to: 'sessions#new'
+
   resources :users, except: :index
 
   resource :session, only: [:create, :new, :destroy]
@@ -8,6 +10,8 @@ GoalsApp::Application.routes.draw do
     post 'complete'
     collection { get 'admin' }
   end
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
