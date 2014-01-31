@@ -6,6 +6,11 @@
 </head>
 <body>
 
+<p>
+  <%= link_to "Admin Interface", admin_goals_url if current_user.try(:admin?) %>
+</p>
+
+
 <%= flash[:errors] %>
 
 <br>

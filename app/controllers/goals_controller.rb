@@ -1,6 +1,6 @@
 class GoalsController < ApplicationController
   before_filter :require_log_in
-  before_filter :must_own_goal, only: [:edit, :update]
+  before_filter :check_privileges, only: [:edit, :update]
 
   def complete
     @goal = Goal.find(params[:goal_id])
@@ -57,13 +57,21 @@ class GoalsController < ApplicationController
     @goal = Goal.find(params[:id])
 
     @goal.destroy
-    flash.now[:messages] = ["Goal Deleted!"]
-    redirect_to goals_url
+    if current_user.admin?
+      redirect_to user_url(@goal.user_id)
+    else
+      flash.now[:messages] = ["Goal Deleted!"]
+      redirect_to goals_url
+    end
   end
 
-  def must_own_goal
+  def admin
+    @users = User.all
+  end
+
+  def check_privileges
     owner_id = Goal.find(params[:id]).user_id
-    redirect_to goals_url unless current_user.id == owner_id
+    redirect_to goals_url unless current_user.id == owner_id || current_user.admin?
   end
 
 end

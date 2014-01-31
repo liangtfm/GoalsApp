@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :username, :password, :session_token
+  attr_accessible :username, :password, :session_token, :admin
   attr_reader :password
 
   before_validation :ensure_session_token
@@ -11,7 +11,8 @@ class User < ActiveRecord::Base
     :goals,
     class_name: "Goal",
     foreign_key: :user_id,
-    primary_key: :id
+    primary_key: :id,
+    dependent: :destroy
   )
 
   def self.find_by_credentials(username, password)
