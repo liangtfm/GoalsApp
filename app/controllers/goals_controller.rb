@@ -29,13 +29,12 @@ class GoalsController < ApplicationController
   end
 
   def index
-    # @goals = Goal.all
     @my_goals = current_user.goals
     @other_peoples_goals = Goal
       .where(
         "(user_id <> :current_user_id) AND private_goal = 'f'",
         current_user_id: current_user.id
-      )
+      ).includes(:user)
   end
 
   def edit

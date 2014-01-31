@@ -24,9 +24,11 @@
 <ul>
 <% @other_peoples_goals.each do |goal| %>
 
-  <li><%= goal.name %></li>
+  <li><%= goal.name %> (<%= goal.user.username %>)</li>
   <%= "<li>Private</li>".html_safe if goal.private_goal? %>
-  <li><%= link_to "Goal Details", goal_url(goal) %></li>
+  <ul>
+    <li><%= link_to "Goal Details", goal_url(goal) %></li>
+  </ul>
 
   <br>
 <% end %>
