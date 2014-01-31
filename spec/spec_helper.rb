@@ -4,6 +4,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
+require 'database_cleaner'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -36,4 +37,26 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+end
+
+def log_in(username)
+  visit new_user_url
+  fill_in('Username', with: username)
+  fill_in('Password', with: '123456')
+  click_button('Sign Up')
+end
+
+def create_goal(goal_name, public=true)
+  visit new_goal_url
+  click_link("Set A New Goal")
+  fill_in('goal', with: goal_name)
+
+  if public
+    choose('public')
+  else
+    choose('private')
+  end
+
+  click_button('Set Goal')
+  Goal.last.id
 end

@@ -6,6 +6,7 @@ gem 'rails', '3.2.15'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'bcrypt-ruby', require: 'bcrypt'
 
 group :development do
   gem 'better_errors'
@@ -16,6 +17,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.0'
   gem 'factory_girl_rails'
   gem 'launchy'
+  gem 'database_cleaner'
 end
 
 group :test do
