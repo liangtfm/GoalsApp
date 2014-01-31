@@ -44,7 +44,7 @@ feature "view goals" do
     log_in('bob')
     create_goal('build a table')
     visit goals_url
-    click_link('build a table')
+    click_link('Goal Details')
     expect(page).to have_link('Edit Goal')
   end
 end
@@ -55,10 +55,10 @@ feature "editing goals" do
     log_in('bob')
     create_goal('build a table')
     visit goals_url
-    click_link('build a table')
+    click_link('Goal Details')
 
     click_link('Edit Goal')
-    fill_in('goal', with: 'better goal')
+    fill_in('name', with: 'better goal')
     click_button('Update Goal')
     visit goals_url
     expect(page).to have_content('better goal')
@@ -68,7 +68,7 @@ feature "editing goals" do
     log_in('bob')
     create_goal('build a table')
     visit goals_url
-    click_link('build a table')
+    click_link('Goal Details')
 
     click_link('Edit Goal')
     click_button('Delete Goal')
@@ -81,7 +81,7 @@ feature "editing goals" do
     log_in('bob')
     create_goal('build a table')
     visit goals_url
-    click_link('build a table')
+    click_link('Goal Details')
 
     click_link('Edit Goal')
     click_button('Delete Goal')
@@ -96,28 +96,32 @@ feature "completing goals" do
     log_in('bob')
     goal_id = create_goal('build a table')
     visit goals_url
-    expect(page).to have_button('complete_#{goal_id}')
+    expect(page).to have_button('Complete Goal')
   end
 
   it "should have button to un-complete goal on goal edit page" do
     log_in('bob')
     goal_id = create_goal('build a table')
     visit goals_url
-    click_button('complete_#{goal_id}')
+    click_button('Complete Goal')
+    # click_button('complete_#{goal_id}')
 
     visit edit_goal_url(goal_id)
     uncheck('Completed')
-    click_on('Edit Goal')
+    click_on('Update Goal')
     visit goals_url
-    expect(page).to have_button('complete_#{goal_id}')
+    expect(page).to have_button('Complete Goal')
+    # expect(page).to have_button('complete_#{goal_id}')
   end
 
   it "clicking button should complete the goal" do
     log_in('bob')
     goal_id = create_goal('build a table')
     visit goals_url
-    click_button('complete_#{goal_id}')
+    click_button('Complete Goal')
+    # click_button('complete_#{goal_id}')
     visit goals_url
-    expect(page).to_not have_button('complete_#{goal_id}')
+    expect(page).to_not have_button('Complete Goal')
+    # expect(page).to_not have_button('complete_#{goal_id}')
   end
 end

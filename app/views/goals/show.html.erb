@@ -1,0 +1,19 @@
+<h1 id="look_at_this_goal.">Look at this goal.</h1>
+
+<p>
+  Goal: <%= @goal.name %>
+</p>
+
+<p>
+  <%= "Private" if @goal.private_goal? %>
+</p>
+
+<p>
+  <%= "Completed" if @goal.completed? %>
+</p>
+
+<p>
+  <%= (link_to "Edit Goal", edit_goal_url(@goal)) if current_user == @goal.user %>
+  <br>
+  <%= link_to "All The Goals", goals_url %>
+</p>

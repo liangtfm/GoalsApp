@@ -7,6 +7,12 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6, allow_nil: true }
   validates :username, uniqueness: true
 
+  has_many(
+    :goals,
+    class_name: "Goal",
+    foreign_key: :user_id,
+    primary_key: :id
+  )
 
   def self.find_by_credentials(username, password)
     @user = User.find_by_username(username)

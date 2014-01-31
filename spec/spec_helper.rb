@@ -47,16 +47,13 @@ def log_in(username)
 end
 
 def create_goal(goal_name, public=true)
-  visit new_goal_url
+  visit goals_url
   click_link("Set A New Goal")
-  fill_in('goal', with: goal_name)
+  fill_in('goal[name]', with: goal_name)
 
-  if public
-    choose('public')
-  else
-    choose('private')
-  end
+  check('goal[private_goal]') unless public
 
   click_button('Set Goal')
+
   Goal.last.id
 end

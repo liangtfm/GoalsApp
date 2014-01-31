@@ -1,0 +1,51 @@
+<h1 id="set_a_new_goal">Edit Your Goal</h1>
+
+<form action="<%= goal_url(@goal) %>" method="POST">
+  <input type="hidden" name="_method" value="PUT">
+
+  <%= auth_token %>
+
+  <p>
+    <label for="name">What are you going to accomplish?</label>
+    <br>
+    <input
+      type="text"
+      name="goal[name]"
+      value="<%= @goal.name %>"
+      id="name">
+  </p>
+
+  <p>
+    <input
+      type="hidden"
+      name="goal[private_goal]"
+      value="">
+    <input
+      type="checkbox"
+      name="goal[private_goal]"
+      value="true"
+      id="private"
+      <%= "checked" if @goal.private_goal? %>>
+    <label for="private">Private</label>
+  </p>
+
+  <p>
+    <input
+      type="hidden"
+      name="goal[completed]"
+      value="">
+    <input
+      type="checkbox"
+      name="goal[completed]"
+      value="true"
+      id="completed"
+      <%= "checked" if @goal.completed? %>>
+    <label for="completed">Completed</label>
+  </p>
+
+  <p><input type="submit" value="Update Goal"></p>
+</form>
+
+<%= button_to "Delete Goal", goal_url(@goal), method: :delete %>
+
+<%= link_to "Cancel Update", goal_url(@goal) %>
