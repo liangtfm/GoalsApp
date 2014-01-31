@@ -1,0 +1,20 @@
+<!-- app/views/users/show.html.erb -->
+
+<h1 >All About <%= @user.username %></h1>
+
+<h2>Goals</h2>
+
+<ul>
+  <% @user.goals.each do |goal| %>
+    <li><%= link_to "#{goal.name}", goal_url(goal) %></li>
+    <ul>
+    <% if current_user.admin? %>
+      <li><%= link_to "Edit Goal", edit_goal_url(goal) %></li>
+      <li><%= button_to "Delete Goal", goal_url(goal), method: :delete %></li>
+    <% end %>
+    </ul>
+    <br>
+  <% end %>
+</ul>
+
+<%= button_to "Delete User", user_url(@user), method: :delete %>

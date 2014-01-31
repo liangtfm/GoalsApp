@@ -57,3 +57,17 @@ def create_goal(goal_name, public=true)
 
   Goal.last.id
 end
+
+def log_in_admin
+  FactoryGirl.create(
+    :user,
+    username: "superhero",
+    password: "123456",
+    admin: true
+  )
+
+  visit new_session_url
+  fill_in('Username', with: "superhero")
+  fill_in('Password', with: '123456')
+  click_button('Sign In')
+end

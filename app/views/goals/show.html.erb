@@ -1,3 +1,5 @@
+<!-- app/views/goals/show.html.erb -->
+
 <h1 id="look_at_this_goal.">Look at this goal.</h1>
 
 <p>
@@ -13,7 +15,7 @@
 </p>
 
 <p>
-  <%= (link_to "Edit Goal", edit_goal_url(@goal)) if current_user == @goal.user %>
+  <%= (link_to "Edit Goal", edit_goal_url(@goal)) if current_user == @goal.user || current_user.admin? %>
   <br>
   <%= link_to "All The Goals", goals_url %>
 </p>

@@ -15,4 +15,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(params[:id], include: :goals)
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    if @user.admin?
+      flash.now[:errors] = ["Can't delete admins!"]
+      render :show
+    else
+      @user.destroy
+      redirect_to admin_goals_url
+    end
+  end
+
 end
