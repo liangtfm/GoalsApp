@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GoalsApp</title>
+  <title>Goals App</title>
+  <%= stylesheet_link_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
+
 <body>
 
+<section class="site_title">
+  <section class="login_info">
+    <% if current_user %>
+
+      Currently logged in as: <%= current_user.username %>
+      <%= button_to "Sign Out", session_url, method: :delete %>
+
+    <% else %>
+
+      <%= link_to "Sign In", new_session_url %>
+      <br>
+      <%= link_to "Sign Up", new_user_url %>
+
+    <% end %>
+  </section>
+
+  <h1>MEET YOUR GOALS</h1>
+
+</section>
+
+<p>
+  <%= flash[:errors] %>
+</p>
 <p>
   <%= link_to "Admin Interface", admin_goals_url if current_user.try(:admin?) %>
 </p>
 
-
-<%= flash[:errors] %>
-
-<br>
-
-<% if current_user %>
-
-  Currently logged in as: <%= current_user.username %>
-  <%= button_to "Sign Out", session_url, method: :delete %>
-
-<% else %>
-
-  <%= link_to "Sign In", new_session_url %>
-  <%= link_to "Sign Up", new_user_url %>
-
-<% end %>
 
 <%= yield %>
 
