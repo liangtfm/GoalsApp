@@ -4,12 +4,18 @@
   <title>Goals App</title>
   <%= stylesheet_link_tag "application" %>
   <%= csrf_meta_tags %>
+<link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
 
-<section class="site_title">
+
+
+<section class="site_header">
   <section class="login_info">
+
+      <%= link_to "Admin Interface", admin_goals_url if current_user.try(:admin?) %>
+
     <% if current_user %>
 
       Currently logged in as: <%= current_user.username %>
@@ -24,16 +30,14 @@
     <% end %>
   </section>
 
-  <h1>MEET YOUR GOALS</h1>
+  <h1 class="site_title"><a href="<%= goals_url %>" id="site_title_link">MEET YOUR GOALS</a></h1>
 
 </section>
 
 <p>
   <%= flash[:errors] %>
 </p>
-<p>
-  <%= link_to "Admin Interface", admin_goals_url if current_user.try(:admin?) %>
-</p>
+
 
 
 <%= yield %>

@@ -1,40 +1,43 @@
-<section class="site_content">
+<section class="page_content">
 
-<h1>Look at all these goals.</h1>
+<h1 class="page_title">Look at all these goals.</h1>
 
 
 <section id="my_goals_homepage">
-<h2>My Goals</h2>
+<h2 class="section_title">My Goals</h2>
 
-<ul>
+<ul id="custom-gen">
 <% @my_goals.each do |goal| %>
 
-  <li><%= goal.name %></li>
-  <%= "<li>Private</li>".html_safe if goal.private_goal? %>
-  <li><%= link_to "Goal Details", goal_url(goal) %></li>
-  <%  unless goal.completed? %>
-    <li><%= button_to "Complete Goal", goal_complete_url(goal) %></li>
-  <% end %>
+  <li class="index_goal_name"><%= goal.name %> <%= "(Private)" if goal.private_goal? %></li>
+
+  <ul>
+      <li class="index_goal_detail"><%= link_to "Details", goal_url(goal) %></li>
+
+      <%  unless goal.completed? %>
+        <li class="index_goal_detail"><%= button_to "Complete", goal_complete_url(goal) %></li>
+      <% end %>
+  </ul>
   <br>
 <% end %>
 </ul>
 
-<p>
+<p id="set_goal_button">
   <%= link_to "Set A New Goal", new_goal_url %>
 </p>
 
 </section>
 
 <section id="other_people_goals_homepage">
-<h2>Other People's Goals</h2>
+<h2 class="section_title">Other People's Goals</h2>
 
-<ul>
+<ul id="custom-gen">
 <% @other_peoples_goals.each do |goal| %>
 
   <li><%= goal.name %> (<%= goal.user.username %>)</li>
   <%= "<li>Private</li>".html_safe if goal.private_goal? %>
   <ul>
-    <li><%= link_to "Goal Details", goal_url(goal) %></li>
+    <li class="index_goal_detail"><%= link_to "Details", goal_url(goal) %></li>
   </ul>
 
   <br>
